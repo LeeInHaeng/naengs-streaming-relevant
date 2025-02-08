@@ -1,8 +1,9 @@
 mod service;
+mod models;
 
 use axum::{http::HeaderValue, routing::get, Router};
 use reqwest::{header, Method};
-use service::hc::hc;
+use service::{developer_api::oauthcallback, hc::hc};
 use tower_http::{cors::CorsLayer, services::ServeFile};
 
 pub fn get_routes() -> Router {
@@ -13,6 +14,7 @@ pub fn get_routes() -> Router {
 
     Router::new()
         .route("/chzzk/hc", get(hc))
+        .route("/chzzk/oauthcallback", get(oauthcallback))
 
         .route_service("/chzzk/hello", ServeFile::new("assets/chzzk/hello.html"))
 
