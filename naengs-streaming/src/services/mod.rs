@@ -33,9 +33,14 @@ pub fn create_routes() -> Router {
         .layer(TimeoutLayer::new(Duration::from_secs(30)))
         .timeout(Duration::from_secs(30));
 
+    let sync_timeout_service = ServiceBuilder::new()
+        .layer(HandleErrorLayer::new(handle_timeout))
+        .layer(TimeoutLayer::new(Duration::from_secs(150)))
+        .timeout(Duration::from_secs(150));
+
     Router::new()
         .nest_service("/_app", static_files_service)
-        .merge(common::get_routes())
+        .merge(common::get_routes().layer(sync_timeout_service))
         .merge(chzzk::get_routes().layer(default_timeout_service))
 
 }
