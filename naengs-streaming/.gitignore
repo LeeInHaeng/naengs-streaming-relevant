@@ -1,0 +1,6 @@
+target/
+Cargo.lock
+_app/
+assets/
+.env
+direct_build.sh
