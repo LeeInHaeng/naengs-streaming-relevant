@@ -59,7 +59,7 @@ pub async fn axum_run() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 // DB 싱글톤 pool
-pub static DB_POOL_REVIEW: Lazy<Pool> = Lazy::new(|| {
+pub static DB_POOL_STREAMING: Lazy<Pool> = Lazy::new(|| {
     let cfg = get_db_pool_config("POSTGRES", "STREAMING");
     cfg.create_pool(Some(Runtime::Tokio1), NoTls).expect("Failed to create db pool")
 });

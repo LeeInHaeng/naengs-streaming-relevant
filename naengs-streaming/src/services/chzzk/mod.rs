@@ -1,5 +1,6 @@
-mod service;
+mod db_models;
 mod models;
+mod service;
 
 use axum::{http::HeaderValue, routing::get, Router};
 use reqwest::{header, Method};
